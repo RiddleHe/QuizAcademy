@@ -1,0 +1,48 @@
+{% extends 'quizzes/base.html' %}
+
+{% block header %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="text-dark pt-3">{{question.question}}</h2>
+            </div>
+        </div>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12 text-dark text-center py-3">
+                <form action="{% url 'quizzes:question' question.id %}" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="mb-3 d-grid">
+                        <input class="btn-check" type="radio" name="options" id="option1" value="{{question.op1}}">
+                        <label class="btn btn-outline-primary" for="option1">
+                            {{question.op1}}
+                        </label>
+                    </div>
+                    <div class="mb-3 d-grid">
+                        <input class="btn-check" type="radio" name="options" id="option2" value="{{question.op2}}">
+                        <label class="btn btn-outline-primary" for="option2">
+                            {{question.op2}}
+                        </label>
+                    </div>
+                    <div class="mb-3 d-grid">
+                        <input class="btn-check" type="radio" name="options" id="option3" value="{{question.op3}}">
+                        <label class="btn btn-outline-primary" for="option3">
+                            {{question.op3}}
+                        </label>
+                    </div>
+                    <div class="mb-3 d-grid">
+                        <input class="btn-check" type="radio" name="options" id="option4" value="{{question.op4}}">
+                        <label class="btn btn-outline-primary" for="option4">
+                            {{question.op4}}
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-dark mt-4">Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

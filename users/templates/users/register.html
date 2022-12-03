@@ -1,0 +1,20 @@
+{% extends 'quizzes/base.html' %}
+{% load bootstrap5 %}
+
+{% block header %}
+    <div class="container text-center">
+        <h1>Register your account</h1>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <section class="container text-center">
+        <form class="form my-4" style="width: 100%; max-width: 660px; padding: 15px; margin: 0 auto;" action="{% url 'users:register' %}" method="post">
+            {%csrf_token%}
+            {% bootstrap_form form %}
+            <button class="btn btn-primary mt-2" name="submit">Register</button>
+        </form>
+    </section>
+
+
+{% endblock content %}

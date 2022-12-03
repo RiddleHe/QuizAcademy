@@ -1,0 +1,45 @@
+{% extends 'quizzes/base.html' %}
+
+{% block header %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-dark text-center py-3">
+                <h2>{{user.username}}'s' Scores</h2>
+            </div>
+            
+            {% for score in scores %}
+            <div class="col-md-4 mb-3">
+                <div class="card flex-md-row mb-4 box-shadow h-md-250 p-3" style="background-color: #fefae0">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <a href="{% url 'quizzes:quiz' score.quiz.id %}"><strong class="d-inline-block mb-2 text-primary">{{score.quiz.name}}</strong></a>
+                        <h6 class="mb-2 card-text">Score {{score.score}}</h6>
+                        <h6 class="mb-2 card-text">Total {{score.total}}</h6>
+                        <h6 class="mb-2 card-text">Percentage {{score.percentage}}</h6>
+                    </div>
+                </div> 
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-dark text-center py-3">
+                <h2>Quizzes</h2>
+            </div>
+            
+            {% for quiz in quizzes %}
+            <div class="col-md-6 mb-3">
+                <div class="card flex-md-row mb-4 box-shadow h-md-250 p-3" style="background-color: #fefae0">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h3 class="card-title">{{quiz.name}}</h3><br>
+                        <a class="btn btn-sm btn-primary" href="{% url 'quizzes:quiz' quiz.id %}">Take quiz</a>
+                    </div>
+                </div> 
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

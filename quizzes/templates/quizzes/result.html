@@ -1,0 +1,17 @@
+{% extends 'quizzes/base.html' %}
+
+
+{% block header %}
+    <div class="jumbotron p-3 p-md-5 mx-3 rounded" style="background-color: #fefae0">
+        <div class="col-md-12 px-0 text-center">
+            <h1 class="text-dark px-4">Result of your quiz on {{score.quiz}}:</h1>
+            <h5 class="text-primary my-4">Score: {{score.score}}</h5>
+            <h5 class="text-dark my-4">Total: {{score.total}}</h5>
+            <h5 class="text-dark my-4">Wrong: {{score.wrong}}</h5>
+            <h5 class="text-dark my-4">Correct: {{score.correct}}</h5>
+            <h5 class="text-dark my-4">Percentage: {{score.percentage}}</h5>
+            <a href="{% url 'quizzes:index' %}" class="btn btn-primary">Go back</a>
+        </div>
+    </div>
+{% endblock header %}
+
