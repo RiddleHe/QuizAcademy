@@ -11,7 +11,8 @@ class Question(models.Model):
     op3 = models.CharField(max_length=200, null=True)
     op4 = models.CharField(max_length=200, null=True)
     answer = models.CharField(max_length=200, null=True)
-    next_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE)
+    next_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE, related_name='next')
+    prev_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE, related_name='prev')
 
     def __str__(self):
         return self.curr_question
@@ -19,7 +20,7 @@ class Question(models.Model):
 class Quiz(models.Model):
 
     name = models.CharField(max_length=100)
-    head = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE)
+    head = models.ForeignKey(Question, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
