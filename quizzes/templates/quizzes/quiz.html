@@ -1,14 +1,14 @@
 {% extends 'quizzes/base.html' %}
 
 {% block header %}
-    <div class="jumbotron p-3 p-md-5 mx-3 text-white rounded" style="background-color: #ccd5ae">
-        <div class="col-md-12 px-0 text-center">
+    <div class="jumbotron p-3 p-md-5 mx-3 text-white rounded" style="background-color: #CED4DA">
+        <div class="col-md-12 px-3 text-center">
             <h1 class="text-dark px-4">{{quiz.name}}</h1>
             <p class="text-dark my-4">Ready to take the quiz?</p>
-            <form action="{% url 'quizzes:quiz' quiz.id %}" method="post">
+            <form action="{% url 'quizzes:quiz' quiz.id %}" method="post" class="d-grid">
                 {% csrf_token %}
                 <input type="hidden">
-                <button name="submit" class="btn btn-primary">Enter</button>
+                <button name="submit" class="btn btn-primary mx-5">Enter</button>
             </form>
         </div>
     </div>
@@ -23,7 +23,7 @@
             
             {% for score in scores %}
             <div class="col-md-4 mb-3">
-                <div class="card flex-md-row mb-4 box-shadow h-md-250 p-3" style="background-color: #fefae0">
+                <div class="card flex-md-row mb-4 box-shadow h-md-250 p-3" style="background-color: #E9ECEF">
                     <div class="card-body d-flex flex-column align-items-start">
                         <strong class="d-inline-block mb-2 text-primary">{{score.quiz.name}}</strong>
                         <h6 class="mb-2 card-text">Score {{score.score}}</h6>

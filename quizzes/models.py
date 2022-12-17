@@ -20,7 +20,7 @@ class Question(models.Model):
 class Quiz(models.Model):
 
     name = models.CharField(max_length=100)
-    head = models.ForeignKey(Question, null=True, on_delete=models.SET_NULL)
+    head = models.ForeignKey(Question, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
