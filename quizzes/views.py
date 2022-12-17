@@ -32,15 +32,14 @@ def quiz(request, quiz_id):
     # get ready to see the first question
 
         # pull up the first question
-        questions = quiz.question_set.order_by('id')
-        question_1 = questions[0]
+        question = quiz.head
         # create the score and save it
         score = Score()
         score.quiz = quiz
         score.user = request.user
         score.save()
 
-        return HttpResponseRedirect(reverse('quizzes:question', args=[question_1.id]))
+        return HttpResponseRedirect(reverse('quizzes:question', args=[question.id]))
 
     # display quiz info
     context={'quiz': quiz, 'scores': scores}
@@ -64,14 +63,11 @@ def question(request, question_id):
         score.percentage = score.score / (score.total*10) * 100
         score.save()
         # pull up the next question
-        questions = question.quiz.question_set.order_by("id")
-        question_index = (*questions,).index(question)
+        question = question.next_question
         # check if this is the last question, if it is, to next
-        if question_index + 1 < len(questions):  
-            question_next = questions[question_index + 1]
-            question_next_id = question_next.id
+        if question != None:  
 
-            return HttpResponseRedirect(reverse('quizzes:question', args=[question_next_id]))
+            return HttpResponseRedirect(reverse('quizzes:question', args=[question.id]))
         # if it's not, submit and see score
         else: 
             return HttpResponseRedirect(reverse('quizzes:result'))

@@ -3,26 +3,26 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
-class Quiz(models.Model):
-
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
 class Question(models.Model):
 
-    question = models.CharField(max_length=200, null=True)
+    curr_question = models.CharField(max_length=200, null=True)
     op1 = models.CharField(max_length=200, null=True)
     op2 = models.CharField(max_length=200, null=True)
     op3 = models.CharField(max_length=200, null=True)
     op4 = models.CharField(max_length=200, null=True)
     answer = models.CharField(max_length=200, null=True)
-    quiz = models.ForeignKey(Quiz, default=1, on_delete=models.CASCADE)
+    next_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.question
+        return self.curr_question
+
+class Quiz(models.Model):
+
+    name = models.CharField(max_length=100)
+    head = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class Score(models.Model):
 
