@@ -3,9 +3,7 @@ An interactive quiz app to take quizzes and track scores.
 ## Features
 - Select from a database of quizzes to take a quiz.
 - See a compilation of latest scores, both in general and by quizzes.
-![Can select from a database of quizzes](/static/quiz_scores_and_quizzes.png)
 - Go through multiple pages to answer multiple-choice questions, while the scores are tracked.
-![Can answer multiple-choice questions](/static/quiz_questions.png)
 - See the score, correct answers, wrong answers, and percentage directly after answering the last question.
 ## Installment
 To begin with, clone the project.
