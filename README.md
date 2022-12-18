@@ -36,18 +36,6 @@ quiz % python3 manage.py runserver
 ## Technologies
 *Using Python, Django, HTML, and Bootstrap*
 - Used a linked list to structure the questions, so users can answer one question after another and see scores that belong particularly to this user and this quiz.
-    ```
-    class Question(models.Model):
-        next_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE, related_name='next')
-        prev_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE, related_name='prev')
-    ```
 - Used Django to configure the URLs of each question page, so users would always be directed to the correct next question when they finished the last.
-    ```
-     question = question.next_question
-        if question != None:  
-            return HttpResponseRedirect(reverse('quizzes:question', args=[question.id]))
-        else: 
-            return HttpResponseRedirect(reverse('quizzes:result'))
-    ```
 - Worked with POST request data to calculate the scores.
 - Applied conditionals in HTML files so that given the user's number of quizzes taken, type of quiz they are taking, etc., they can see different collection of score reports, questions, and result in the same HTML page.
