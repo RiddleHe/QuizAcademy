@@ -11,5 +11,7 @@ urlpatterns = [
     re_path('^question/(?P<question_id>\d+)/$', views.question, name='question'),
     # for the result of the quiz
     re_path('^result/$', views.result, name='result'),
+    # for adding questions
+    re_path('^add_question/$', views.add_question, name='add_question'),
     
 ]

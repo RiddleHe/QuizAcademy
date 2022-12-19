@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from .forms import AddQuestion
 
 
 from .models import Question, Quiz, Score
@@ -85,3 +86,24 @@ def result(request):
     context = {'score': score}
     return render(request, 'quizzes/result.html', context)
 
+@login_required
+def add_question(request):
+    """Add a new question and set up what the previous question is"""
+    if request.method != 'POST':
+        form = AddQuestion()
+
+    else:
+        form = AddQuestion(request.POST)
+        if form.is_valid():
+            new_question=form.save(commit=False)
+            prev = new_question.prev_question
+            new_question.next_question = prev.next_question
+            next = new_question.next_question
+            next.prev_question = new_question
+            prev.next_question = new_question
+            new_question.save()
+            return HttpResponseRedirect(reverse('quizzes:index'))
+
+    
+    context={'form': form}
+    return render(request, 'quizzes/add_question.html', context)
