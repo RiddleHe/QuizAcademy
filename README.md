@@ -38,7 +38,8 @@ quiz % python3 manage.py runserver
 ```
 ## Technologies
 *Using Python, Django, HTML, and Bootstrap*
-- Used a linked list to structure the questions, so users can answer one question after another and see scores that belong particularly to this user and this quiz.
+- Used a doubly linked list to structure the questions, so users can answer one question after another and see scores that belong particularly to this user and this quiz.
+- Took advantage of the doubly linked list structure to easily add new questions to any location with a given quiz.
 - Used Django to configure the URLs of each question page, so users would always be directed to the correct next question when they finished the last.
 - Worked with POST request data to calculate the scores.
 - Applied conditionals in HTML files so that given the user's number of quizzes taken, type of quiz they are taking, etc., they can see different collection of score reports, questions, and result in the same HTML page.
