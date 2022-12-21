@@ -5,14 +5,17 @@ An interactive quiz app to take quizzes and track scores.
 
     ![index page](static/quiz_scores_and_quizzes.png)
 
-- See a compilation of latest scores, both in general and by quizzes.
+- Add new question to any quiz the user selects, and insert it after any existing question according to the user's choice.
+
+    ![add_question page](static/quiz_add_question.png)
+
 - Go through multiple pages to answer multiple-choice questions, while the scores are tracked.
 
-    ![index page](static/quiz_questions.png)
+    ![question page](static/quiz_questions.png)
 
 - See the score, correct answers, wrong answers, and percentage directly after answering the last question.
 
-    ![index page](static/quiz_result.png)
+    ![result page](static/quiz_result.png)
 
 ## Installment
 To begin with, clone the project.
