@@ -11,8 +11,8 @@ class Question(models.Model):
     op3 = models.CharField(max_length=200, null=True)
     op4 = models.CharField(max_length=200, null=True)
     answer = models.CharField(max_length=200, null=True)
-    next_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE, related_name='next')
-    prev_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.CASCADE, related_name='prev')
+    next_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.SET_NULL, related_name='next')
+    prev_question = models.ForeignKey(to='Question', null=True, blank=True, on_delete=models.SET_NULL, related_name='prev')
 
     def __str__(self):
         return self.curr_question

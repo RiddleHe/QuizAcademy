@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .forms import AddQuestion
+from .forms import AddQuestion, AddQuiz
 
 
 from .models import Question, Quiz, Score
@@ -89,6 +89,7 @@ def result(request):
 @login_required
 def add_question(request):
     """Add a new question and set up what the previous question is"""
+    quizzes = Quiz.objects.all()
     if request.method != 'POST':
         form = AddQuestion()
 
@@ -96,14 +97,42 @@ def add_question(request):
         form = AddQuestion(request.POST)
         if form.is_valid():
             new_question=form.save(commit=False)
+            # if the question is not the ehad
             prev = new_question.prev_question
-            new_question.next_question = prev.next_question
-            next = new_question.next_question
-            next.prev_question = new_question
-            prev.next_question = new_question
+            if prev != None:
+                new_question.next_question = prev.next_question
+                next = new_question.next_question
+                if next != None:
+                    next.prev_question = new_question
+                prev.next_question = new_question
+            # if question is the head
+            else:
+                quiz_name = request.POST.get("quiz_name")
+                quiz = Quiz.objects.get(name=quiz_name)
+                if quiz.head != None:
+                    new_question.next_question = quiz.head
+                    quiz.head.prev_question = new_question
+                quiz.head = new_question
             new_question.save()
+            quiz.save()
             return HttpResponseRedirect(reverse('quizzes:index'))
 
     
-    context={'form': form}
+    context={'form': form, 'quizzes': quizzes}
     return render(request, 'quizzes/add_question.html', context)
+
+@login_required
+def add_quiz(request):
+    """Add a new quiz and proceed to add head question"""
+    if request.method != 'POST':
+        form = AddQuiz()
+
+    else:
+        form = AddQuiz(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('quizzes:add_question'))
+
+    
+    context={'form': form}
+    return render(request, 'quizzes/add_quiz.html', context)

@@ -13,5 +13,6 @@ urlpatterns = [
     re_path('^result/$', views.result, name='result'),
     # for adding questions
     re_path('^add_question/$', views.add_question, name='add_question'),
-    
+    # for adding quizzes
+    re_path('^add_quiz/$', views.add_quiz, name='add_quiz'),
 ]
