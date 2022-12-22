@@ -5,7 +5,7 @@ An interactive quiz app to take quizzes and track scores.
 
     ![index page](static/quiz_scores_and_quizzes.png)
 
-- Add new question to any quiz the user selects, and insert it after any existing question according to the user's choice.
+- Add new question to any quiz the user selects, and insert it anywhere in the quiz depending on previous actions the use takes.
 
     ![add_question page](static/quiz_add_question.png)
 
@@ -39,7 +39,7 @@ quiz % python3 manage.py runserver
 ## Technologies
 *Using Python, Django, HTML, and Bootstrap*
 - Used a doubly linked list to structure the questions, so users can answer one question after another and see scores that belong particularly to this user and this quiz.
-- Took advantage of the doubly linked list structure to easily add new questions to any location with a given quiz.
+- Took advantage of the doubly linked list structure to easily add new questions to any location within a given quiz.
 - Used Django to configure the URLs of each question page, so users would always be directed to the correct next question when they finished the last.
 - Worked with POST request data to calculate the scores.
 - Applied conditionals in HTML files so that given the user's number of quizzes taken, type of quiz they are taking, etc., they can see different collection of score reports, questions, and result in the same HTML page.
