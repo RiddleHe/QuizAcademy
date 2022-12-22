@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class AddQuestion(ModelForm):
     class Meta:
         model=Question
-        fields=['curr_question', 'op1', 'op2', 'op3', 'op4', 'answer', 'prev_question']
-        labels={'curr_question': 'Question', 'op1': 'Option 1', 'op2': 'Option 2', 'op3': 'Option3', 'op4': 'Option 4', 'prev_question': 'This question follows'}
+        fields=['curr_question', 'op1', 'op2', 'op3', 'op4', 'answer']
+        labels={'curr_question': 'Question', 'op1': 'Option 1', 'op2': 'Option 2', 'op3': 'Option3', 'op4': 'Option 4'}
 
 class AddQuiz(ModelForm):
     class Meta:

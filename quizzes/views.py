@@ -87,9 +87,16 @@ def result(request):
     return render(request, 'quizzes/result.html', context)
 
 @login_required
-def add_question(request):
+def add_question(request, quiz_id):
     """Add a new question and set up what the previous question is"""
     quizzes = Quiz.objects.all()
+    target_quiz = Quiz.objects.get(id=quiz_id)
+    node = target_quiz.head
+    nodes = []
+    while node != None:
+        nodes.append(node)
+        node = node.next_question
+
     if request.method != 'POST':
         form = AddQuestion()
 
@@ -112,13 +119,15 @@ def add_question(request):
                 if quiz.head != None:
                     new_question.next_question = quiz.head
                     quiz.head.prev_question = new_question
+                    new_question.save()
+                    quiz.head.save()
                 quiz.head = new_question
             new_question.save()
             quiz.save()
             return HttpResponseRedirect(reverse('quizzes:index'))
 
     
-    context={'form': form, 'quizzes': quizzes}
+    context={'form': form, 'quizzes': quizzes, 'nodes': nodes, 'target_quiz':target_quiz}
     return render(request, 'quizzes/add_question.html', context)
 
 @login_required
@@ -130,9 +139,24 @@ def add_quiz(request):
     else:
         form = AddQuiz(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('quizzes:add_question'))
+            quiz = form.save(commit=False)
+            quiz.save()
+            return HttpResponseRedirect(reverse('quizzes:add_question', args=[quiz.id]))
 
     
     context={'form': form}
     return render(request, 'quizzes/add_quiz.html', context)
+
+@login_required
+def edit_quiz(request):
+    """Add a new quiz and proceed to add head question"""
+    quizzes = Quiz.objects.all()
+
+    if request.method == "POST":
+        quiz_name = request.POST.get("edit_quiz")
+        quiz = Quiz.objects.get(name=quiz_name)
+        return HttpResponseRedirect(reverse('quizzes:add_question', args=[quiz.id]))
+
+    
+    context={'quizzes': quizzes}
+    return render(request, 'quizzes/edit_quiz.html', context)
