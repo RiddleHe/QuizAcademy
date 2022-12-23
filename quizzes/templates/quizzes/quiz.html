@@ -8,7 +8,7 @@
             <form action="{% url 'quizzes:quiz' quiz.id %}" method="post" class="d-grid">
                 {% csrf_token %}
                 <input type="hidden">
-                <button name="submit" class="btn btn-primary mx-5">Enter</button>
+                <button name="submit" class="btn btn-dark mx-5 py-2 mx-5">Enter</button>
             </form>
         </div>
     </div>

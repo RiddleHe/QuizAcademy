@@ -104,26 +104,27 @@ def add_question(request, quiz_id):
         form = AddQuestion(request.POST)
         if form.is_valid():
             new_question=form.save(commit=False)
-            # if the question is not the ehad
-            prev = new_question.prev_question
-            if prev != None:
+            # if the question is not the head
+            if request.POST.get("question_name") != None and request.POST.get("quiz_name") == None:
+                new_question.prev_question = Question.objects.get(name=request.POST.get("question_name"))
+                prev = new_question.prev_question
                 new_question.next_question = prev.next_question
-                next = new_question.next_question
+                next = prev.next_question
                 if next != None:
                     next.prev_question = new_question
                 prev.next_question = new_question
+                new_question.save()
             # if question is the head
-            else:
-                quiz_name = request.POST.get("quiz_name")
-                quiz = Quiz.objects.get(name=quiz_name)
+            elif request.POST.get("question_name") != None and request.POST.get("quiz_name") == None:
+                quiz = Quiz.objects.get(name=request.POST.get("quiz_name"))
                 if quiz.head != None:
                     new_question.next_question = quiz.head
                     quiz.head.prev_question = new_question
                     new_question.save()
                     quiz.head.save()
                 quiz.head = new_question
-            new_question.save()
-            quiz.save()
+                new_question.save()
+                quiz.save()
             return HttpResponseRedirect(reverse('quizzes:index'))
 
     
@@ -160,3 +161,16 @@ def edit_quiz(request):
     
     context={'quizzes': quizzes}
     return render(request, 'quizzes/edit_quiz.html', context)
+
+@login_required
+def delete_score(request, score_id):
+    score = Score.objects.get(id=score_id)
+    if score.user == request.user:
+        score.delete()
+    return HttpResponseRedirect(reverse('quizzes:index'))
+
+@login_required
+def delete_quiz(request, quiz_id):
+    quiz = Quiz.objects.get(id=quiz_id)
+    quiz.delete()
+    return HttpResponseRedirect(reverse('quizzes:index'))

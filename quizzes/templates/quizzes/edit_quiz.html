@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-3"></div>
             <div class="col-sm-12 col-md-6 bg-light pt-3 pb-4 text-center">
-                <select class="form-select mt-5" form="question_form" id="edit_quiz" name="edit_quiz">
+                <select class="form-select mt-3" form="question_form" id="edit_quiz" name="edit_quiz">
                     <option value="none"></option>
                     {% for quiz in quizzes %}
                     <option value="{{quiz.name}}">{{quiz.name}}</option>
@@ -17,7 +17,7 @@
                 </select>
                 <form id="question_form" action="{% url 'quizzes:edit_quiz' %}" method="post" class="form mt-3 mx-5">
                     {% csrf_token %}
-                    <button class="btn btn-primary mt-5" name="submit">Add question</button>
+                    <button class="btn btn-dark mt-3" name="submit">Add question</button>
                 </form>
             </div>
             <div class="col-md-3"></div>

@@ -17,4 +17,8 @@ urlpatterns = [
     re_path('^add_quiz/$', views.add_quiz, name='add_quiz'),
     # for editing questions
     re_path('^edit_quiz/$', views.edit_quiz, name='edit_quiz'),
+    # for deleting scores
+    re_path('^delete_score/(?P<score_id>\d+)/$', views.delete_score, name='delete_score'),
+    # for deleting quizzes
+    re_path('^delete_quiz/(?P<quiz_id>\d+)/$', views.delete_quiz, name='delete_quiz'),
 ]
